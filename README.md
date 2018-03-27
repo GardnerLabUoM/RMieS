@@ -104,16 +104,16 @@ Using the RMieS\_EMSC\_v5 algorithm:
 
 1. Desired resolution. Chops out columns of the data matrix to get data closest to the resolution specified. A value of “0” leaves the data in its current resolution.
 
-2. Lower wavenumber region. The minimum wavenumber value in cm<sup>-1</sup> of the spectra. The current lowest is 1000 cm<sup>-1</sup> because the built in Matrigel reference spectrum starts at 1000 cm<sup>-1</sup>. If your own reference spectrum is provided, you can use the same range as that spectrum.
+2. Lower wavenumber region. The minimum wavenumber value in cm<sup>-1</sup> of the spectra. The current lowest is 1000 cm<sup>-1</sup> because the built in Matrigel<sup>&reg;</sup> reference spectrum starts at 1000 cm<sup>-1</sup>. If your own reference spectrum is provided, you can use the same range as that spectrum.
 
-3. Upper wavenumber region. Current maximum is 4000 cm<sup>-1</sup> again due to the built-in Matrigel spec.
+3. Upper wavenumber region. Current maximum is 4000 cm<sup>-1</sup> again due to the built-in Matrigel<sup>&reg;</sup> spectrum.
 
 4. Number of iterations. 1 gives the first estimation.
 
-5. Mie theory option:
-	- 1. Non-resonant Mie correction (the Achim Kohler original)
-	- 2. Resonant Mie (RMieS) correction
-	- 3. Full Mie theory [under construction]
+5. Mie theory option:   
+	1  = Non-resonant Mie correction (the Achim Kohler original)   
+	2  = Resonant Mie (RMieS) correction   
+	3  = Full Mie theory [under construction]
 
 6. Number of principal components used from the decomposed Mie scattering curves matrix. Recommended is 7 or 8.
 
@@ -129,10 +129,10 @@ Using the RMieS\_EMSC\_v5 algorithm:
 
 12. Gram Schmidt process option, 1 = on, 0 = off. Recommended value is 1. This basically makes the descriptive vectors orthogonal.
 
-13. Which reference spectrum,
-	- 1 uses the built in Matrigel spectrum (recommended)
-	- 2 uses a simulated spectrum, this was included for another purpose, not recommended.
-	- 0 uses the custom spectrum entered by the user.
+13. Which reference spectrum,   
+	0 = uses the custom spectrum entered by the user.   
+	1 = uses the built in Matrigel spectrum (recommended).   
+	2 = uses a simulated spectrum, this was included for another purpose, not recommended.   
 
 
 ### Using a custom reference spectrum ###
