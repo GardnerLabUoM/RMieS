@@ -66,7 +66,7 @@ Using the RMieS\_EMSC\_v5 algorithm:
 
 4. Copy and paste the following into your command window or m-file script:
 
-    ```
+    ```matlab
     correction_options =  [ ...              
       0;  	 % 1. Desired resolution, (0 keeps original resolution)              
       1000;  % 2. Lower wavenumber range (min value is 1000)        
@@ -88,8 +88,8 @@ Using the RMieS\_EMSC\_v5 algorithm:
 
 6. Copy and paste the following command into the MATLAB command window or m-file, 
  
-    ```
-    [WNout ZCorr History] = RMieS_EMSC_v5(WN, ZRaw, correction_options);
+    ```matlab
+    [WNout, ZCorr, History] = RMieS_EMSC_v5(WN, ZRaw, correction_options);
 	```
 
 7. The following is the output from the algorithm:
@@ -139,7 +139,7 @@ Using the RMieS\_EMSC\_v5 algorithm:
 
 The function works much the same as before; just a slight modification:
 
-```
+```matlab
 [WNout, ZCorr, History] = RMieS_EMSC_v5(WN, ZRaw, correction_options, WN_ref, ZRef);
 ```
 
