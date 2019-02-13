@@ -1,13 +1,14 @@
 %% Loading the data etc
 
-clear; close all; clc
+clear; 
+close all; 
+clc
 
 load Simulated_Sept
 
-
 ZRaw = Sc_Spectra.d(1,:);   % This runs the algorithm for just 1 spectrum but there are more 
-WN = str2num(Q.v); clear Q Sc_Spectra Spectra n
-
+WN = str2num(Q.v);  %#ok<ST2NM>
+clear Q Sc_Spectra Spectra n
 
 %% Correction options
 
@@ -15,7 +16,7 @@ correction_options = [ ...
     0    ;      % 1. Desired resolution, (0 keeps original resolution)
     1000 ;      % 2. Lower wavenumber range (min value is 1000)
     2300 ;      % 3. Upper wavenumber range (max value is 2300)
-    10    ;      % 4. Number of iterations
+    10   ;      % 4. Number of iterations
     2    ;      % 5. Mie theory option (smooth or RMieS)
     7    ;      % 6. Number of principal components used (7 default)
     2    ;      % 7. Lower range for scattering particle diameter / um
@@ -26,41 +27,8 @@ correction_options = [ ...
     1    ;      % 12. Gram-Schmidt Process option, 0 = no, 1 = yes. (1 recommended)
     1   ];      % 13. Which reference spectrum, 1 = Matrigel, 2 = Simulated Spectrum
 
-
 %% The actual correction
-
-[WN_corr ZCorr_m] = RMieS_EMSC_v5(WN, ZRaw , correction_options);
-
+[WN_corr,ZCorr_m,history] = RMieS_EMSC_v5(WN, ZRaw, correction_options);
 
 %% Plotting results
-
-
 plot( WN_corr , ZCorr_m )
-
-
-
-
-
-%%
-
-% p = ls_norm( mean(ZCorr_m) , ZCorr_m );
-% 
-% [P T EV] = princomp(p);
-% 
-% pca_2d(T,1,2,EV,[25 25],['r';'b'])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
