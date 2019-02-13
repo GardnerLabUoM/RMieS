@@ -93,18 +93,18 @@ WN = WN(a:b);
 ZRaw = ZRaw(:, a:b);
 
 [N,K] = size(ZRaw);
-spectra_names = num2str([1:N]');
+spectra_names = num2str((1:N)');
 
 %% Reference spectrum
 
 if (nargin == 3)
     if (ref_option == 1)
         load Matrigel_Reference_Raw
-        ZRef = spline(ZRef_Raw(:,1), ZRef_Raw(:,2), WN)';
+        ZRef = spline(ZRef_Raw(:,1), ZRef_Raw(:,2), WN)'; %#ok<NODEF>
         clear ZRef_Raw
     elseif (ref_option == 2)
         load Simulated_ZRef_Raw; 
-        ZRef = spline(ZRef_Raw(:,1), ZRef_Raw(:,2), WN)'; 
+        ZRef = spline(ZRef_Raw(:,1), ZRef_Raw(:,2), WN)';  %#ok<NODEF>
         clear ZRef_Raw
     else
         error('No reference spectrum option selected')
@@ -112,7 +112,8 @@ if (nargin == 3)
 end
 
 if (nargin == 5)
-    if (length(WN) == length(WN_Ref_in))
+    if ((length(WN) == length(WN_Ref_in)) ...
+            && (length(ZRaw) == length(Ref_in)))
         ref_length_check = 1;
     else
         ref_length_check = 0;
@@ -120,6 +121,8 @@ if (nargin == 5)
     
     if (ref_length_check == 0)
         ZRef = spline(WN_Ref_in, Ref_in, WN)';
+    else
+        ZRef = Ref_in;
     end
 end
 
@@ -143,7 +146,7 @@ ZRef.d = temp;
 ZRef.v = ZRaw.v;
 ZRef.i = 'Ref';
 
-initial_ref = ZRef;
+initial_ref = ZRef; %#ok<NASGU>
 
 ZWeightsSpec = Spectrum_Weights(ZRaw);
 
@@ -167,18 +170,18 @@ elseif (mie_theory == 2)
     [ZCorr,mod_para] = Mie_maths(ZRef, ZRaw, ZWeightsSpec, ...
         NCOMP, mie_theory, GSP_flag, r_min, r_max, n_min, n_max, spacings);
     history(:,:,1) = ZCorr.d;
-    res_hist(:,:,1) = mod_para.residual;
+    res_hist(:,:,1) = mod_para.residual; %#ok<NASGU>
     
     if (iterations > 1)
         for j = 1:N
             ZRaw2.d = ZRaw.d(j, :);
             for i = 2:iterations
-                try
+                try %#ok<TRYNC>
                     ZRef.d = history(j, :, i-1);
 
                     ZRef.d = fit_gauss_whole_spec_split(WN, ZRef.d')';
                     [ZCorr,mod_para] = Mie_maths(ZRef, ZRaw2, ZWeightsSpec, ...
-                        NCOMP, mie_theory, GSP_flag, r_min, r_max, n_min, n_max, spacings);
+                        NCOMP, mie_theory, GSP_flag, r_min, r_max, n_min, n_max, spacings); %#ok<ASGLU>
                     history(j,:,i) = ZCorr.d;
 
                     disp(['Spectrum ', num2str(j), ' Iteration ', num2str(i), '  ', datestr(now)])
